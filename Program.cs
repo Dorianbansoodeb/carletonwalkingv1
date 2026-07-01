@@ -9,25 +9,39 @@ using Mars.Core.Simulation;
 using Mars.Interfaces;
 using Mars.Interfaces.Model;
 using SOHModel.Car.Model;
+using SOHModel.Multimodal.Model;
 
-namespace SOHCarletonDrivingV1Box;
+namespace SOHCarletonWalkingBox;
 
 internal static class Program
 {
     public static void Main(string[] args)
     {
         Thread.CurrentThread.CurrentCulture = new CultureInfo("EN-US");
-        LoggerFactory.SetLogLevel(LogLevel.Warning);
+        LoggerFactory.SetLogLevel(LogLevel.Off);
 
         var description = new ModelDescription();
         description.AddLayer<CarLayer>();
-        description.AddLayer<CarletonParkingSchedulerLayer>();
         description.AddAgent<CarDriver, CarLayer>();
         description.AddEntity<Car>();
 
-        var configPath = args is { Length: > 0 } ? args[0] : "config.json";
-        var simConfig = SimulationConfig.Deserialize(File.ReadAllText(configPath));
-        var application = SimulationStarter.BuildApplication(description, simConfig);
+        ISimulationContainer application;
+        if (args is { Length: > 0 })
+        {
+            var configPath = args[0];
+            var configText = File.ReadAllText(configPath);
+            var simConfig = SimulationConfig.Deserialize(configText);
+            if (configText.Contains("CarDriverSchedulerLayer", StringComparison.Ordinal))
+                description.AddLayer<CarDriverSchedulerLayer>();
+            application = SimulationStarter.BuildApplication(description, simConfig);
+        }
+        else
+        {
+            var simConfig = SimulationConfig.Deserialize(File.ReadAllText("config.json"));
+            description.AddLayer<CarDriverSchedulerLayer>();
+            application = SimulationStarter.BuildApplication(description, simConfig);
+        }
+
         var simulation = application.Resolve<ISimulation>();
 
         var watch = Stopwatch.StartNew();
@@ -35,8 +49,6 @@ internal static class Program
         watch.Stop();
 
         Console.WriteLine($"Executed iterations {state.Iterations} lasted {watch.Elapsed}");
-        CarletonParkingSchedulerLayer.PrintSpawnSummary();
-
         application.Dispose();
     }
 }

@@ -1,17 +1,16 @@
 {
-  "id": "carleton_scenario_01",
+  "id": "carleton_test_spawn",
   "globals": {
     "deltaT": 1,
     "startPoint": "2021-10-11T06:00:00",
-    "endPoint": "2021-10-11T14:20:00",
+    "endPoint": "2021-10-11T07:00:00",
     "deltaTUnit": "seconds",
     "console": true
   },
   "agents": [
     {
       "name": "CarDriver",
-      "count": 3200,
-      "file": "resources/car_driver_schedule.csv",
+      "file": "resources/car_drivers_test.csv",
       "outputs": [
         {
           "kind": "trips",
@@ -34,9 +33,6 @@
     {
       "name": "CarLayer",
       "file": "resources/campus_drive_graph.geojson"
-    },
-    {
-      "name": "CarDriverSchedulerLayer"
     }
   ],
   "entities": [

@@ -1,8 +1,11 @@
 bin/
 obj/
 .venv/
+.cache/
 cache/
 results/
+CarDriver_trips.geojson
+CarDriver.csv
 __pycache__/
 *.pyc
 __pycache__/
