@@ -1,0 +1,3 @@
+﻿startTime,endTime,spawningIntervalInMinutes,spawningAmount,carType,maxSpeed,averageSpeed,trafficCode,startLat,startLon,destLat,destLon,osmRoute,nextTrafficLightPhase,driveMode
+6:00,6:00,1,1,Golf,13.89,13.89,german,45.3814076,-75.7006193,45.3792575,-75.7004525,,,3
+6:01,6:01,1,1,Golf,13.89,13.89,german,45.3814076,-75.7006193,45.3792575,-75.7004525,,,3

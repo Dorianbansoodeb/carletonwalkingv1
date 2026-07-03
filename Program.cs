@@ -18,7 +18,7 @@ internal static class Program
     public static void Main(string[] args)
     {
         Thread.CurrentThread.CurrentCulture = new CultureInfo("EN-US");
-        LoggerFactory.SetLogLevel(LogLevel.Off);
+        LoggerFactory.SetLogLevel(LogLevel.Warning);
 
         var description = new ModelDescription();
         description.AddLayer<CarLayer>();
